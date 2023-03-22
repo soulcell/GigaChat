@@ -1,0 +1,29 @@
+<div class="Wrapper">
+  <svg height="48px" viewBox="0 0 655 128">
+    <use href="/assets/logo.svg#full"/>
+  </svg>
+  <nav>
+    <a 
+      routerLink="/" 
+      routerLinkActive="hidden" 
+      ariaCurrentWhenActive="page"
+      [routerLinkActiveOptions]="{exact: true}"
+      [appAuthClass]="hiddenClass"
+      >Home</a
+    >
+    <a
+      routerLink="/signin"
+      routerLinkActive="hidden"
+      ariaCurrentWhenActive="page"
+      [appAuthClass]="hiddenClass"
+      >Sign In</a
+    >
+    <a
+      routerLink="/signup"
+      routerLinkActive="hidden"
+      ariaCurrentWhenActive="page"
+      [appAuthClass]="hiddenClass"
+      >Sign Up</a
+    >
+  </nav>
+</div>

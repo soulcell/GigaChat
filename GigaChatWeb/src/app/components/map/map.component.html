@@ -1,0 +1,12 @@
+<div class="map-container" #map></div>
+<mgl-map
+  [style]="mapStyle"
+  [zoom]="[zoom]"
+  [center]="[centerLat, centerLng]"
+>
+  <mgl-control mglNavigation></mgl-control>
+  <mgl-control mglGeolocate></mgl-control>
+  <mgl-marker *ngFor="let marker of markers" [lngLat]="marker.lngLat">
+    <app-text-message/>
+  </mgl-marker>
+</mgl-map>

@@ -1,0 +1,43 @@
+<div class="wrapper">
+  <h1>Sign up</h1>
+  <form (submit)="signup()">
+    <div class="inputGroup">
+      <label for="usernameInput">Username: </label>
+      <input
+        [(ngModel)]="creds.userName"
+        id="usernameInput"
+        type="text"
+        name="username"
+        required
+      />
+    </div>
+    <div class="inputGroup">
+      <label for="usernameInput">Password: </label>
+      <input
+        [(ngModel)]="creds.password"
+        id="passwordInput"
+        type="password"
+        name="Password"
+        required
+      />
+    </div>
+    <div class="inputGroup">
+      <label for="usernameInput">Repeat password: </label>
+      <input
+        (ngModel)="creds.repeatPassword"
+        id="repPasswordInput"
+        type="password"
+        name="repPassword"
+        required
+      />
+    </div>
+    <div class="inputGroup">
+      <button>OK</button>
+    </div>
+  </form>
+  <div *ngIf="this.error" class="errorWrapper">
+    There was an error:
+    <br/>
+    {{this.error.error}}
+  </div>
+</div>

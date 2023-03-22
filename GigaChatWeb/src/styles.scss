@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+@import "./consts.scss";
+
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: $mainFont
+}
+
+button {
+  padding: 8px;
+  border-radius: 8px;
+  background-color: $color3;
+  border: none;
+  font-family: $mainFont;
+  color: $color0;
+}
+
+input {
+  font-family: $mainFont;
+  font-weight: bold;
+}
