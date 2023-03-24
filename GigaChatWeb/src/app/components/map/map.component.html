@@ -3,10 +3,11 @@
   [style]="mapStyle"
   [zoom]="[zoom]"
   [center]="[centerLat, centerLng]"
+  (mapDblClick)="onDblClick($event)"
 >
   <mgl-control mglNavigation></mgl-control>
   <mgl-control mglGeolocate></mgl-control>
-  <mgl-marker *ngFor="let marker of markers" [lngLat]="marker.lngLat">
-    <app-text-message/>
+  <mgl-marker *ngFor="let post of postService.posts" [lngLat]="[post.location.longitude, post.location.latitude]">
+    <app-post/>
   </mgl-marker>
 </mgl-map>

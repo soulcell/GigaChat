@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './components/map/map.component';
 import { VideoMessageComponent } from './components/video-message/video-message.component';
-import { TextMessageComponent } from './components/text-message/text-message.component';
+import { PostComponent } from './components/post/post.component';
 import { SigninPageComponent } from './pages/signin-page/signin-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -22,7 +22,7 @@ import { SignupFormComponent } from './components/signup-form/signup-form.compon
     AppComponent,
     MapComponent,
     VideoMessageComponent,
-    TextMessageComponent,
+    PostComponent,
     SigninPageComponent,
     SignupPageComponent,
     NavbarComponent,

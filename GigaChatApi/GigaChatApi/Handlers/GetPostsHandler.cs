@@ -1,6 +1,7 @@
 ﻿using GigaChatApi.Models;
 using GigaChatApi.Queries;
 using MediatR;
+using Redis.OM;
 using Redis.OM.Contracts;
 using Redis.OM.Searching;
 
@@ -14,7 +15,7 @@ namespace GigaChatApi.Handlers
         public GetPostsHandler(IRedisConnectionProvider provider)
         {
             _provider = provider;
-            _posts = _provider.RedisCollection<Post>();
+            _posts = _provider.RedisCollection<Post>(1000);
         }
         public async Task<IEnumerable<Post>> Handle(GetPostsQuery request, CancellationToken cancellationToken)
         {

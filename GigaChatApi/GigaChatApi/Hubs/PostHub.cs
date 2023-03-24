@@ -1,10 +1,16 @@
-﻿using GigaChatApi.Models;
+﻿using GigaChatApi.Commands;
+using GigaChatApi.Models;
 using GigaChatApi.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Redis.OM.Modeling;
+using System.Security.Claims;
 
 namespace GigaChatApi.Hubs
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PostHub : Hub
     {
         private readonly ISender _sender;
@@ -15,12 +21,20 @@ namespace GigaChatApi.Hubs
         }
         public async Task<IEnumerable<Post>> GetPostsAsync()
         {
-            return await _sender.Send(new GetPostsQuery());
+            var posts = await _sender.Send(new GetPostsQuery());
+            return posts;
         }
 
-        public async Task AddPostAsync(string text)
+        public async Task AddPostAsync(string text, GeoLoc location)
         {
-            Post post = new Post() { Text = text }; 
+            var userId = Context.UserIdentifier;
+            Post post = new Post
+            {
+                AuthorId = Guid.Parse(userId),
+                Text = text,
+                Location = location
+            };
+            await _sender.Send(new AddPostCommand(post));
         }
     }
 }

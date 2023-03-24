@@ -1,4 +1,5 @@
 using GigaChatApi.Dtos;
+using GigaChatApi.Hubs;
 using GigaChatApi.Middleware;
 using GigaChatApi.Models;
 using GigaChatApi.Security;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Redis.OM;
+using Redis.OM.Contracts;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +22,7 @@ builder.Services.AddAutoMapper(cfg =>
 
 builder.Services.AddControllers();
 
-builder.Services.AddSingleton(new RedisConnectionProvider("redis://" + Environment.GetEnvironmentVariable("REDIS_CONNECTION_STRING")!));
+builder.Services.AddSingleton<IRedisConnectionProvider>(new RedisConnectionProvider("redis://" + Environment.GetEnvironmentVariable("REDIS_CONNECTION_STRING")!));
 builder.Services.AddHostedService<IndexCreationService>();
 //builder.Services.AddIdentityCore<AppUser>()
 //    .AddUserManager<UserManager<AppUser>>()
@@ -42,6 +44,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateAudience = false,
         ValidateIssuer = false,
     };
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var accessToken = context.Request.Query["access_token"];
+
+            var path = context.HttpContext.Request.Path;
+            if (!string.IsNullOrEmpty(accessToken) &&
+                path.StartsWithSegments("/postHub"))
+            {
+                context.Token = accessToken;
+            }
+            return Task.CompletedTask;
+        }
+    };
 });
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
@@ -62,5 +79,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<PostHub>("/postHub");
 
 app.Run();

@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
-import { LngLatLike } from 'maplibre-gl';
+import { Component, OnInit } from '@angular/core';
+import { LngLatLike, MapLibreEvent, MapMouseEvent } from 'maplibre-gl';
 import { MyMarker } from 'src/app/models/myMarker';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent {
+export class MapComponent implements OnInit {
   mapStyle = 'https://demotiles.maplibre.org/style.json';
   zoom = 5;
   centerLat = -74.5;
@@ -41,5 +42,16 @@ export class MapComponent {
     },
   ]
 
-  constructor() {}
+  constructor(public postService: PostService) { }
+  
+  ngOnInit(): void {
+  }
+
+  onDblClick(e: MapMouseEvent) {
+    const {lng: longitude, lat: latitude} = e.lngLat
+    this.postService.addPost({longitude, latitude})
+    e.preventDefault();
+  }
+
+
 }
