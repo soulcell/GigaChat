@@ -20,28 +20,27 @@ export class PostService {
       })
       .configureLogging(LogLevel.Debug)
       .build();
+
+    this.connection.on('newPost', (post: Post) => {
+      this.posts.push(post);
+    });
+
     this.connection.start().then(() => {
-      this.getPosts()
+      this.getPosts();
     });
   }
 
   getPosts() {
-    this.connection.invoke('GetPostsAsync')
-      .then((result) => {
-        this.posts = result;
-        console.log(result);
-      });
+    this.connection.invoke('GetPostsAsync').then((result) => {
+      this.posts = result;
+    });
   }
 
   addPost(text: string, loc: GeoLoc) {
     const post: Post = {
-      id: "0",
-      authorId: "0",
       text,
-      location: loc
-    }
-    this.posts.push(post);
-    console.log(post);
+      location: loc,
+    };
     this.connection.invoke('AddPostAsync', text, loc);
   }
 }

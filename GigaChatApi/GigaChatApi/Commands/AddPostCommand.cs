@@ -3,5 +3,5 @@ using MediatR;
 
 namespace GigaChatApi.Commands
 {
-    public record AddPostCommand(Post post) : IRequest;
+    public record AddPostCommand(Post post) : IRequest<Post>;
 }

@@ -11,8 +11,8 @@ namespace GigaChatApi.Models
         [Indexed]
         public Guid AuthorId { get; set; }
 
-        [Indexed]
         public string? Text { get; set; }
+        public string AuthorName { get; set; }
 
         [Indexed]
         public GeoLoc Location { get; set; }

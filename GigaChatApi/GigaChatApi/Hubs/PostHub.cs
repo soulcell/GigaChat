@@ -34,7 +34,9 @@ namespace GigaChatApi.Hubs
                 Text = text,
                 Location = location
             };
-            await _sender.Send(new AddPostCommand(post));
+            var newPost = await _sender.Send(new AddPostCommand(post));
+
+            await Clients.All.SendAsync("newPost", newPost);
         }
     }
 }
