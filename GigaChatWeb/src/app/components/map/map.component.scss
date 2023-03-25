@@ -1,3 +1,5 @@
+@import "../../../consts.scss";
+
 mgl-map {
-    height: 700px;
+    height: calc(100vh - $navbarSize);
 }

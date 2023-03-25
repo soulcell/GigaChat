@@ -1,11 +1,29 @@
+@import "../../../consts.scss";
+
 .wrapper {
+
+    h3 {
+        margin: 0 0 10px 0;
+    }
+
     width: fit-content;
+    min-width: 100px;
+    max-width: 300px;
+    overflow-y: hidden;
     padding: 1em;
-    border-radius: 16px;
-    background-color: #5D83A6;
-    color: white;
+    border-radius: 10px;
+    background-color: $color2;
+    color: $color0;
+    font-family: $mainFont;
+    box-shadow: 5px 5px 10px $color3;
+
+    p {
+        margin: 0;
+        overflow-wrap: break-word;
+        word-break: break-all;
+    }
 }
 
 .wrapper:hover {
-    background-color: #70A0CC;
+    background-color: $color3;
 }
