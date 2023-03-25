@@ -16,6 +16,7 @@ import { SigninFormComponent } from './components/signin-form/signin-form.compon
 import { FormsModule } from '@angular/forms';
 import { AuthClassDirective } from './directives/auth-class.directive';
 import { SignupFormComponent } from './components/signup-form/signup-form.component';
+import { AddPostComponent } from './components/add-post/add-post.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { SignupFormComponent } from './components/signup-form/signup-form.compon
     SigninFormComponent,
     SignupFormComponent,
     AuthClassDirective,
+    AddPostComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgxMapLibreGLModule, FormsModule, HttpClientModule],
   providers: [

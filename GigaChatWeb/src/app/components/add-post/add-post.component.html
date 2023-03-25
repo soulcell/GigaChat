@@ -1,0 +1,17 @@
+<div class="dialogBackdrop">
+  <div class="dialogWrapper">
+    <button class="close" (click)="onclose()">X</button>
+    <label for="postText">Add post:</label>
+    <textarea
+      name="text"
+      id="postText"
+      cols="40"
+      rows="5"
+      maxlength="140"
+      placeholder="Enter your post..."
+      #text
+      required
+    ></textarea>
+    <button class="ok" (click)="addPost(text.value)">OK</button>
+  </div>
+</div>

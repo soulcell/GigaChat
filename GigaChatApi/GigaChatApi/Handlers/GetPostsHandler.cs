@@ -15,7 +15,7 @@ namespace GigaChatApi.Handlers
         public GetPostsHandler(IRedisConnectionProvider provider)
         {
             _provider = provider;
-            _posts = _provider.RedisCollection<Post>(1000);
+            _posts = _provider.RedisCollection<Post>();
         }
         public async Task<IEnumerable<Post>> Handle(GetPostsQuery request, CancellationToken cancellationToken)
         {

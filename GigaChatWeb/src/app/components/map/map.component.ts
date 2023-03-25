@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LngLatLike, MapLibreEvent, MapMouseEvent } from 'maplibre-gl';
-import { MyMarker } from 'src/app/models/myMarker';
+import { LngLat, MapMouseEvent } from 'maplibre-gl';
+import GeoLoc from 'src/app/models/GeoLoc';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -14,33 +14,9 @@ export class MapComponent implements OnInit {
   centerLat = -74.5;
   centerLng = 40;
 
-  markerPositions: LngLatLike[] = [
-    [-13, 20],
-    [-14, 11]
-  ]
-
-  markers: MyMarker[] = [
-    {
-      author: "kriper",
-      text: "pshhhdsad sda sad  sdfgsadfd fgkmng jfb",
-      lngLat: [-13, 20]
-    },
-    {
-      author: "man",
-      text: "Hello chez",
-      lngLat: [10, 22]
-    },
-    {
-      author: "hols",
-      text: "Cool!",
-      lngLat: [-3, 44]
-    },
-    {
-      author: "player",
-      text: "sdf sda sad  sda fgkmng jfb",
-      lngLat: [0, 0]
-    },
-  ]
+  showAddDialog: boolean = false;
+  postText: string = "";
+  loc: LngLat | undefined;
 
   constructor(public postService: PostService) { }
   
@@ -48,10 +24,23 @@ export class MapComponent implements OnInit {
   }
 
   onDblClick(e: MapMouseEvent) {
-    const {lng: longitude, lat: latitude} = e.lngLat
-    this.postService.addPost({longitude, latitude})
+    // const {lng: longitude, lat: latitude} = e.lngLat
+    // this.postService.addPost({longitude, latitude})
+    this.showAddDialog = true;
+    this.loc = e.lngLat;
     e.preventDefault();
   }
 
+  closeAddDialog = () => {
+    this.showAddDialog = false;
+    this.loc = undefined;
+  }
+
+  addPost(text: string) {
+    this.showAddDialog = false;
+    if (text && this.loc) {
+      this.postService.addPost(text, {longitude: this.loc.lng, latitude: this.loc.lat});
+    }
+  }
 
 }

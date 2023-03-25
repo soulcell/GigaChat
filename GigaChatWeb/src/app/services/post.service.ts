@@ -33,15 +33,15 @@ export class PostService {
       });
   }
 
-  addPost(loc: GeoLoc) {
+  addPost(text: string, loc: GeoLoc) {
     const post: Post = {
       id: "0",
       authorId: "0",
-      text: "lol",
+      text,
       location: loc
     }
     this.posts.push(post);
     console.log(post);
-    this.connection.invoke('AddPostAsync', 'lolkek', loc);
+    this.connection.invoke('AddPostAsync', text, loc);
   }
 }
