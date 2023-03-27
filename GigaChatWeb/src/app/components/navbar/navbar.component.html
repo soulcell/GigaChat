@@ -3,27 +3,28 @@
     <use href="/assets/logo.svg#full"/>
   </svg>
   <nav>
-    <a 
-      routerLink="/" 
-      routerLinkActive="hidden" 
-      ariaCurrentWhenActive="page"
-      [routerLinkActiveOptions]="{exact: true}"
-      [appAuthClass]="hiddenClass"
-      >Home</a
-    >
     <a
       routerLink="/signin"
       routerLinkActive="hidden"
       ariaCurrentWhenActive="page"
-      [appAuthClass]="hiddenClass"
-      >Sign In</a
+      [appAuthClass]="'hidden'"
+      >SignIn</a
     >
     <a
       routerLink="/signup"
       routerLinkActive="hidden"
       ariaCurrentWhenActive="page"
-      [appAuthClass]="hiddenClass"
-      >Sign Up</a
+      [appAuthClass]="'hidden'"
+      >SignUp</a
+    >
+    <a
+      routerLink="/signin"
+      class="hidden"
+      routerLinkActive="hidden"
+      ariaCurrentWhenActive="page"
+      [appAuthClass]="'shown'"
+      (click)="logOut()"
+      >LogOut</a
     >
   </nav>
 </div>

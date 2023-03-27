@@ -24,8 +24,6 @@ export class MapComponent implements OnInit {
   }
 
   onDblClick(e: MapMouseEvent) {
-    // const {lng: longitude, lat: latitude} = e.lngLat
-    // this.postService.addPost({longitude, latitude})
     this.showAddDialog = true;
     this.loc = e.lngLat;
     e.preventDefault();

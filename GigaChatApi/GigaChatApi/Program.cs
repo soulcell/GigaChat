@@ -24,9 +24,6 @@ builder.Services.AddControllers();
 
 builder.Services.AddSingleton<IRedisConnectionProvider>(new RedisConnectionProvider("redis://" + Environment.GetEnvironmentVariable("REDIS_CONNECTION_STRING")!));
 builder.Services.AddHostedService<IndexCreationService>();
-//builder.Services.AddIdentityCore<AppUser>()
-//    .AddUserManager<UserManager<AppUser>>()
-//    .AddSignInManager<SignInManager<AppUser>>()
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddRedisStores(options =>
     {
