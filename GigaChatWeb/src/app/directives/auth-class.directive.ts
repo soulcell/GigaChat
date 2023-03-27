@@ -1,16 +1,20 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
 @Directive({
   selector: '[appAuthClass]',
 })
-export class AuthClassDirective {
+export class AuthClassDirective implements OnInit {
   @Input() appAuthClass = '';
 
-  constructor(private el: ElementRef, private authService: AuthService) {
-    if (this.authService.authenticated && this.appAuthClass) {
-      this.el.nativeElement.classList.add(this.appAuthClass);
+  constructor(private el: ElementRef, private authService: AuthService) { }
+  ngOnInit(): void {
+    console.log(this.appAuthClass);
+    if (this.authService.isAuthenticated()) {
+      (this.el.nativeElement as HTMLElement).classList.add(this.appAuthClass);
     }
   }
+
+  
 
 }

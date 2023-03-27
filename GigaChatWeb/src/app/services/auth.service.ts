@@ -8,8 +8,6 @@ import User from '../models/User';
   providedIn: 'root'
 })
 export class AuthService {
-  authenticated: boolean = false;
-  
 
   constructor(private http: HttpClient) { }
 
@@ -24,8 +22,19 @@ export class AuthService {
     );
   }
 
-  signup(username: string, password: string): Observable<any> {
-    return this.http.post('api/user/signup', { username, password });
+  signup(username: string, password: string): Observable<User> {
+    return this.http.post<User>('api/user/signup', { username, password })
+    .pipe<User>(
+      map(result => {
+        if (result.token)
+          localStorage.setItem('gigachat_token', result.token);
+        return result;
+      })
+    );
+  }
+
+  logout(): void {
+    localStorage.removeItem('gigachat_token');
   }
 
   getToken(): string | null {
